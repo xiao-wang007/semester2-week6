@@ -38,7 +38,35 @@ void test_obvious_palindrome(void) {
  * 2. Use TEST_MSG("message") to explain what went wrong if it fails
  * ============================================================ */
 
+void test_single_character(void) {
+    TEST_CHECK(is_palindrome("a") == 1);
+    TEST_MSG("Expected a single-character string to be a palindrome");
+}
 
+void test_empty_string(void) {
+    TEST_CHECK(is_palindrome("") == 1);
+    TEST_MSG("Expected an empty string to be a palindrome");
+}
+
+void test_even_length_palindrome(void) {
+    TEST_CHECK(is_palindrome("abba") == 1);
+    TEST_MSG("Expected 'abba' to be a palindrome");
+}
+
+void test_non_palindrome(void) {
+    TEST_CHECK(is_palindrome("hello") == 0);
+    TEST_MSG("Expected 'hello' to not be a palindrome");
+}
+
+void test_case_sensitive(void) {
+    TEST_CHECK(is_palindrome("Racecar") == 0);
+    TEST_MSG("Expected 'Racecar' to fail because matching is case-sensitive");
+}
+
+void test_space_sensitive(void) {
+    TEST_CHECK(is_palindrome("race car") == 0);
+    TEST_MSG("Expected 'race car' to fail because spaces are compared as characters");
+}
 
 /* ============================================================
  * TEST_LIST - Register all your tests here
@@ -48,10 +76,12 @@ void test_obvious_palindrome(void) {
  * ============================================================ */
 TEST_LIST = {
     { "obvious palindrome (racecar)", test_obvious_palindrome },
-    /* TODO: Add your tests here, e.g.:
-     * { "single character", test_single_char },
-     * { "empty string", test_empty_string },
-     */
+    { "single character", test_single_character },
+    { "empty string", test_empty_string },
+    { "even-length palindrome", test_even_length_palindrome },
+    { "non-palindrome", test_non_palindrome },
+    { "case-sensitive check", test_case_sensitive },
+    { "space-sensitive check", test_space_sensitive },
     { NULL, NULL }
 };
 
